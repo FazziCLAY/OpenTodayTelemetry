@@ -1,0 +1,4 @@
+Manifest-Version: 1
+Main-Class: ru.fazziclay.opentoday.telemetry.Main
+Created-By: FazziCLAY
+

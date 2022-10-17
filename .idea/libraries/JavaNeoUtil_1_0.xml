@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="JavaNeoUtil-1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/NeoServer-v1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/JavaNeoUtil-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/libs/JavaNeoUtil-1.0-sources-javadoc.jar!/" />
+    </SOURCES>
+  </library>
+</component>
