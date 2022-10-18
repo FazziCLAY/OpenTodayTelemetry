@@ -1,0 +1,5 @@
+v1 - first telemetry (deprecated)
+
+v2 - packet based (since 2022.10.16)
+    c->s: Handshake (contain app version)
+    etc...
