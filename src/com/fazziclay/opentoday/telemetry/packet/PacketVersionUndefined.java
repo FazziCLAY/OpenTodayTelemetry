@@ -1,27 +1,21 @@
-package ru.fazziclay.opentoday.telemetry.packet;
+package com.fazziclay.opentoday.telemetry.packet;
 
 import com.fazziclay.neosocket.packet.Packet;
 import com.fazziclay.neosocket.packet.PacketConverter;
 
-public class Packet20008UIOpen implements Packet {
+import java.nio.charset.StandardCharsets;
+
+public class PacketVersionUndefined implements Packet {
     public static Converter CONVERTER = new Converter();
     private static class Converter extends PacketConverter {
         @Override
         public Packet decode(byte[] data) {
-            return new Packet20008UIOpen();
+            return new PacketVersionUndefined();
         }
 
         @Override
         public byte[] encode(Packet packet) {
-            return new byte[0];
+            return "Please send the first PacketSetVersion!".getBytes(StandardCharsets.UTF_8);
         }
-    }
-
-    public Packet20008UIOpen() {
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }

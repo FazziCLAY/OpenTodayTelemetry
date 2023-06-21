@@ -1,7 +1,7 @@
-package ru.fazziclay.opentoday.telemetry;
+package com.fazziclay.opentoday.telemetry;
 
 import com.fazziclay.neosocket.packet.PacketsRegistry;
-import ru.fazziclay.opentoday.telemetry.packet.*;
+import com.fazziclay.opentoday.telemetry.packet.*;
 
 public class TelemetryPackets extends PacketsRegistry {
     public TelemetryPackets() {

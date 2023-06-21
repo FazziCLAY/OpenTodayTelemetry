@@ -1,4 +1,4 @@
-package ru.fazziclay.opentoday.telemetry.packet;
+package com.fazziclay.opentoday.telemetry.packet;
 
 import com.fazziclay.neosocket.Util;
 import com.fazziclay.neosocket.packet.Packet;

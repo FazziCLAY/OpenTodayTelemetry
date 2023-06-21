@@ -1,9 +1,9 @@
-package ru.fazziclay.opentoday.telemetry;
+package com.fazziclay.opentoday.telemetry;
 
 import com.fazziclay.neosocket.Client;
 import com.fazziclay.neosocket.PacketHandler;
 import com.fazziclay.neosocket.packet.Packet;
-import ru.fazziclay.opentoday.telemetry.packet.*;
+import com.fazziclay.opentoday.telemetry.packet.*;
 
 import java.io.IOException;
 import java.util.Timer;
