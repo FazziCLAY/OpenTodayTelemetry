@@ -50,7 +50,7 @@ public class Main {
     private static void runServer(int port) {
         System.out.println("Server starting...");
         System.out.println("OpenTodayTelemetry v2\nBy: FazziCLAY");
-        System.out.println("Check libs version. If throw: add to classPath JavaNeoUtil.jar ? NeoSocket.jar");
+        System.out.println("Check libs version. If throw: add to classPath JavaNeoUtil.jar & NeoSocket.jar");
         System.out.printf("Libs:\n * JavaNeoUtil: %s\n * NeoSocket: %s%n", JavaNeoUtil.VERSION_NAME, NeoSocket.VERSION_NAME);
         Server server = new Server(port, new TelemetryPackets(), TelemetryServerHandler::new, System.out);
         Thread serverThread = new Thread(server::run);
@@ -58,6 +58,9 @@ public class Main {
         serverThread.start();
         while (server.isBusy()) {
             server.tick();
+            try {
+                Thread.sleep(1000);
+            } catch (Exception ignore) {}
         }
         System.out.println("Server stopped!");
     }
