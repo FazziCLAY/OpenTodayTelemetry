@@ -14,6 +14,7 @@ public class TelemetryServerHandler implements PacketHandler {
     private final Client client;
     private int clientVersion = 0;
     private UUID instanceId;
+    private boolean debugBuild = false;
     private int appVersion = 0;
     private long lastActivity;
     private Timer afkTimer = new Timer();
@@ -74,21 +75,24 @@ public class TelemetryServerHandler implements PacketHandler {
                 Packet20005Handshake h = (Packet20005Handshake) packet;
                 appVersion = h.getAppVersion();
 
+            } else if (packet instanceof Packet20010NotifyDebugUser) {
+                debugBuild = true;
+
             } else if (clientVersion >= 2 && packet instanceof Packet20006CrashReport) {
                 log("Crash");
                 Packet20006CrashReport c = (Packet20006CrashReport) packet;
-                new Thread(() -> TelemetryServer.crash(instanceId, client.getAddress(), clientVersion, appVersion, c.getCrashId(), c.getThrowable(), c.getCrashReport())).start();
+                new Thread(() -> TelemetryServer.crash(debugBuild, instanceId, client.getAddress(), clientVersion, appVersion, c.getCrashId(), c.getThrowable(), c.getCrashReport())).start();
 
             } else if (clientVersion >= 2 && packet instanceof Packet20007DataFixerLogs) {
                 log("DataFixer");
                 Packet20007DataFixerLogs d = (Packet20007DataFixerLogs) packet;
-                new Thread(() -> TelemetryServer.dataFixer(instanceId, client.getAddress(), clientVersion, appVersion, d.getDataVersion(), d.getLogs())).start();
+                new Thread(() -> TelemetryServer.dataFixer(debugBuild, instanceId, client.getAddress(), clientVersion, appVersion, d.getDataVersion(), d.getLogs())).start();
 
             } else if (clientVersion >= 2 && packet instanceof Packet20008UIOpen) {
-                new Thread(() -> TelemetryServer.uiOpened(instanceId, client.getAddress(), clientVersion, appVersion)).start();
+                new Thread(() -> TelemetryServer.uiOpened(debugBuild, instanceId, client.getAddress(), clientVersion, appVersion)).start();
 
             } else if (clientVersion >= 2 && packet instanceof Packet20009UIClosed) {
-                new Thread(() -> TelemetryServer.uiClosed(instanceId, client.getAddress(), clientVersion, appVersion)).start();
+                new Thread(() -> TelemetryServer.uiClosed(debugBuild, instanceId, client.getAddress(), clientVersion, appVersion)).start();
 
             } else {
                 log("Unknown packet " + packet);

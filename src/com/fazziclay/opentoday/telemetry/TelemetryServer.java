@@ -9,28 +9,28 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class TelemetryServer {
-    public static void crash(UUID instanceId, String addr, int cliVer, int appVer, UUID crashId, String throwable, String crashReport) {
+    public static void crash(boolean debugBuild, UUID instanceId, String addr, int cliVer, int appVer, UUID crashId, String throwable, String crashReport) {
         FileUtil.setText(new File(getUserFolder(instanceId), getDateTime() + "-crash"), crashReport);
-        FileUtil.setText(new File("./received/v2/crashes/" + getDateTime() + "-" + crashId.toString()), crashReport);
-        logToFile(instanceId, addr, cliVer, appVer, "@Crash " + crashId + ": " + throwable);
+        FileUtil.setText(new File("./received/v2"+(debugBuild ? "/debug" : "")+"/crashes/" + getDateTime() + "-" + crashId.toString()), crashReport);
+        logToFile(instanceId, debugBuild, addr, cliVer, appVer, "@Crash " + crashId + ": " + throwable);
     }
 
-    public static void dataFixer(UUID instanceId, String addr, int cliVer, int appVer, int dataVersion, String logs) {
+    public static void dataFixer(boolean debugBuild, UUID instanceId, String addr, int cliVer, int appVer, int dataVersion, String logs) {
         FileUtil.setText(new File(getUserFolder(instanceId), getDateTime() + "-datafixer"), logs);
-        FileUtil.setText(new File("./received/v2/datafixes/" + getDateTime() + "-" + instanceId), logs);
-        logToFile(instanceId, addr, cliVer, appVer, "@DataFixer upgraded to dataVersion=" + dataVersion);
+        FileUtil.setText(new File("./received/v2"+(debugBuild ? "/debug" : "")+"/datafixes/" + getDateTime() + "-" + instanceId), logs);
+        logToFile(instanceId, debugBuild, addr, cliVer, appVer, "@DataFixer upgraded to dataVersion=" + dataVersion);
     }
 
-    public static void uiOpened(UUID instanceId, String addr, int cliVer, int appVer) {
-        logToFile(instanceId, addr, cliVer, appVer, "@UIOpen");
+    public static void uiOpened(boolean debugBuild, UUID instanceId, String addr, int cliVer, int appVer) {
+        logToFile(instanceId, debugBuild, addr, cliVer, appVer, "@UIOpen");
     }
 
-    public static void uiClosed(UUID instanceId, String addr, int cliVer, int appVer) {
-        logToFile(instanceId, addr, cliVer, appVer, "@UIClosed");
+    public static void uiClosed(boolean debugBuild, UUID instanceId, String addr, int cliVer, int appVer) {
+        logToFile(instanceId, debugBuild, addr, cliVer, appVer, "@UIClosed");
     }
 
-    private static void logToFile(UUID instanceId, String address, int cV, int aV, String text) {
-        FileUtil.addText(new File("./received/v2/logs.txt"), String.format("[%s] [%s - %s] av%s cv%s %s", getDateTime(), instanceId, address, cV, aV, text) + "\n");
+    private static void logToFile(UUID instanceId, boolean debug, String address, int cV, int aV, String text) {
+        FileUtil.addText(new File("./received/v2/logs.txt"), String.format("%s[%s] [%s - %s] av%s cv%s %s", (debug ? "[DEBUG_BUILD] " : ""), getDateTime(), instanceId, address, cV, aV, text) + "\n");
     }
 
     public static String getDateTime() {

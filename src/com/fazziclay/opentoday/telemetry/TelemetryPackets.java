@@ -15,7 +15,8 @@ public class TelemetryPackets extends PacketsRegistry {
                 new Info(20006, Packet20006CrashReport.class, Packet20006CrashReport.CONVERTER),
                 new Info(20007, Packet20007DataFixerLogs.class, Packet20007DataFixerLogs.CONVERTER),
                 new Info(20008, Packet20008UIOpen.class, Packet20008UIOpen.CONVERTER),
-                new Info(20009, Packet20009UIClosed.class, Packet20009UIClosed.CONVERTER)
+                new Info(20009, Packet20009UIClosed.class, Packet20009UIClosed.CONVERTER),
+                new Info(20010, Packet20010NotifyDebugUser.class, Packet20010NotifyDebugUser.CODEC)
         });
     }
 }
